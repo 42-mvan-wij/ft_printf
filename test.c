@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/27 14:37:48 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/08 00:33:42 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/08 17:43:35 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #include <unistd.h>
 
 // #define TEST(...) __VA_ARGS__
-#define FT_PRINTF(format,...){write(1,"\"",1);ft_printf(format,print_info __VA_OPT__(,) __VA_ARGS__);}
+#define FT_PRINTF_SINGLE(format,...){write(1,"\"",1);ft_printf(format,print_info);}
+#define FT_PRINTF(format,...){write(1,"\"",1);ft_printf(format,print_info,__VA_ARGS__);}
 
 char	*pad_name(t_conv *conv)
 {
@@ -65,7 +66,7 @@ type: %s\n\n",
 
 int	main(void)
 {
-	FT_PRINTF("test");
+	FT_PRINTF_SINGLE("test");
 	FT_PRINTF("hello %-13s", "world");
 	FT_PRINTF("char: %c", 'c');
 	FT_PRINTF("char: %c", '\0');

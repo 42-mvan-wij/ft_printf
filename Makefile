@@ -6,7 +6,7 @@
 #    By: mvan-wij <mvan-wij@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/02/27 13:30:55 by mvan-wij      #+#    #+#                  #
-#    Updated: 2021/03/08 00:32:24 by mvan-wij      ########   odam.nl          #
+#    Updated: 2021/03/08 18:08:17 by mvan-wij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,12 +31,12 @@ OBJECTS = $(patsubst $(SRC)/%,$(OBJDIR)/%, $(SOURCES:c=o))
 
 all: $(NAME)
 
-test: test.c re
-	gcc $(CFLAGS) test.c $(NAME)
-	@echo ./a.out
-	@echo -------------
-	@./a.out
-	@rm a.out
+debug: test.c re
+	gcc $(CFLAGS) -g test.c $(NAME)
+	# @echo ./a.out
+	# @echo -------------
+	# @./a.out
+	# @rm a.out
 
 $(NAME): $(OBJECTS) libft
 	cp lib/libft/libft.a $(NAME)
