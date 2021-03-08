@@ -6,7 +6,7 @@
 #    By: mvan-wij <mvan-wij@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/02/27 13:30:55 by mvan-wij      #+#    #+#                  #
-#    Updated: 2021/02/27 14:12:22 by mvan-wij      ########   odam.nl          #
+#    Updated: 2021/03/08 00:32:24 by mvan-wij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,25 +18,42 @@ CFLAGS = -Wall -Wextra -Werror
 SRC = src
 OBJDIR = obj
 
-SOURCES = $(SRC)/ft_printf.c
+SOURCES = $(SRC)/ft_printf.c \
+          $(SRC)/default_flags.c \
+          $(SRC)/parse_conv.c \
+          $(SRC)/print_part.c \
+          $(SRC)/field_width.c \
+          $(SRC)/c_conv.c \
+          $(SRC)/s_conv.c
 OBJECTS = $(patsubst $(SRC)/%,$(OBJDIR)/%, $(SOURCES:c=o))
 
-.PHONY = all clean fclean re
+.PHONY = all clean fclean re test libft
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS)
+test: test.c re
+	gcc $(CFLAGS) test.c $(NAME)
+	@echo ./a.out
+	@echo -------------
+	@./a.out
+	@rm a.out
+
+$(NAME): $(OBJECTS) libft
+	cp lib/libft/libft.a $(NAME)
 	ar -crs $(NAME) $(OBJECTS)
 
 $(OBJDIR)/%.o: $(SRC)/%.c $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+libft:
+	$(MAKE) -C lib/libft bonus
+
 clean:
-	rm $(OBJECTS)
+	rm -f $(OBJECTS)
 
 fclean: clean
-	rm -r $(OBJDIR)
-	rm $(NAME)
+	rm -rf $(OBJDIR)
+	rm -f $(NAME)
 
 re: fclean all
 

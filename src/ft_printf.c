@@ -6,26 +6,34 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/27 13:25:10 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/02/27 14:11:16 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/07 23:48:16 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
-// #include "../lib/libft/libft.h"
-#include <unistd.h>
+#include <stddef.h>
+#include "ft_printf.h"
 
-int	printf(const char *format_string, ...)
+int	ft_printf(const char *format_string, ...)
 {
 	va_list	ap;
 	char	*format;
+	int		len;
+	t_conv	tmp_conv_arg; // tmp
+	void (*fn)(int, t_conv *); // tmp
 
 	va_start(ap, format_string);
+	fn = va_arg(ap, void *); // tmp
 	format = (char *)format_string;
-	while (*format != '\0')
+	len = 0;
+	set_default_flags(&tmp_conv_arg); // tmp
+	while (format[0] != '\0')
 	{
-		write(1, format, 1);
-		format++;
+		format = print_part(format, ap, &len, &tmp_conv_arg); // ~tmp
+		if (format == NULL)
+			return (-1);
 	}
+	fn(len, &tmp_conv_arg); // tmp
 	va_end(ap);
-	return (0);
+	return (len);
 }
