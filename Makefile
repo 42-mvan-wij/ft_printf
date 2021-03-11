@@ -6,14 +6,18 @@
 #    By: mvan-wij <mvan-wij@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/02/27 13:30:55 by mvan-wij      #+#    #+#                  #
-#    Updated: 2021/03/08 18:08:17 by mvan-wij      ########   odam.nl          #
+#    Updated: 2021/03/11 14:11:19 by mvan-wij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
+LIBFT = lib/libft/libft.a
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+ifdef DEBUG
+CFLAGS += -g
+endif
 
 SRC = src
 OBJDIR = obj
@@ -31,35 +35,51 @@ SOURCES = $(SRC)/ft_printf.c \
           $(SRC)/conv/p_conv.c
 OBJECTS = $(patsubst $(SRC)/%,$(OBJDIR)/%, $(SOURCES:c=o))
 
-.PHONY = all clean fclean re test libft
+.PHONY: all clean fclean re test debug profile $(LIBFT)
 
 all: $(NAME)
 
-debug: test.c re
-	gcc $(CFLAGS) -g test.c $(NAME)
-	# @echo ./a.out
-	# @echo -------------
-	# @./a.out
-	# @rm a.out
+test: $(SOURCES) test.c $(LIBFT)
+	gcc $(CFLAGS) $(SOURCES) test.c $(LIBFT)
+	@echo ./a.out
+	@echo ------------
+	@./a.out
 
-$(NAME): $(OBJECTS) libft
-	cp lib/libft/libft.a $(NAME)
+debug: test.c
+	$(MAKE) re DEBUG=1
+	gcc $(CFLAGS) -g test.c $(NAME)
+	@# @echo ./a.out
+	@# @echo -------------
+	@# @./a.out
+	@# @rm a.out
+
+profile: debug
+	valgrind -q --tool=callgrind --callgrind-out-file=/tmp/callgrind.out ./a.out
+	gprof2dot --format=callgrind -o/tmp/out.dot /tmp/callgrind.out
+	dot -Gdpi=400 -Tpng /tmp/out.dot -o profile.png
+
+$(NAME): $(OBJECTS) $(LIBFT)
+	cp $(LIBFT) $(NAME)
 	ar -crs $(NAME) $(OBJECTS)
 
-$(OBJDIR)/%.o: $(SRC)/%.c $(OBJDIR)
+$(OBJDIR)/%.o: $(SRC)/%.c
+	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-libft:
+$(LIBFT):
+ifdef DEBUG
+	$(MAKE) -C lib/libft debug bonus
+else
 	$(MAKE) -C lib/libft bonus
+endif
 
 clean:
 	rm -f $(OBJECTS)
+	$(MAKE) -C lib/libft clean
 
 fclean: clean
 	rm -rf $(OBJDIR)
 	rm -f $(NAME)
+	$(MAKE) -C lib/libft fclean
 
 re: fclean all
-
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
