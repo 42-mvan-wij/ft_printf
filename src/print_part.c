@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 22:28:53 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/08 00:33:22 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/11 14:17:59 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,15 @@ static int	print_conversion(t_conv *conv, int cur_len, va_list ap)
 		return (print_c(conv, va_arg(ap, int)));
 	if (conv->e_type == STRING)
 		return (print_s(conv, va_arg(ap, char *)));
-	return (0);
+	if (conv->e_type == INT)
+		return (print_i(conv, va_arg(ap, int)));
+	if (conv->e_type == UINT)
+		return (print_u(conv, va_arg(ap, int)));
+	if (conv->e_type == HEX_LOW || conv->e_type == HEX_CAP)
+		return (print_x(conv, va_arg(ap, unsigned), conv->e_type == HEX_CAP));
+	if (conv->e_type == PTR)
+		return (print_p(conv, va_arg(ap, void *)));
+	return (-1);
 }
 
 char	*print_part(char *format, va_list ap, int *len, t_conv *tmp_conv_arg)

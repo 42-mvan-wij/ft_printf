@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/27 14:40:20 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/08 00:28:01 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/11 14:17:26 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ char	*parse_conversion(char *format, t_conv *conv, va_list ap);
 int		print_with_field_width(t_conv *conv, char *str, int len);
 int		print_c(t_conv *conv, char c);
 int		print_s(t_conv *conv, char *str);
+int		print_i(t_conv *conv, int i);
+int		print_u(t_conv *conv, unsigned int i);
+int		print_x(t_conv *conv, unsigned int i, int cap);
+int		print_p(t_conv *conv, void *p);
 char	*print_part(char *format, va_list ap, int *len, t_conv *tmp_conv_arg);
 int		ft_printf(const char *format, ...);
 

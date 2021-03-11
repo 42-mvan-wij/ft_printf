@@ -23,8 +23,12 @@ SOURCES = $(SRC)/ft_printf.c \
           $(SRC)/parse_conv.c \
           $(SRC)/print_part.c \
           $(SRC)/field_width.c \
-          $(SRC)/c_conv.c \
-          $(SRC)/s_conv.c
+          $(SRC)/conv/c_conv.c \
+          $(SRC)/conv/s_conv.c \
+          $(SRC)/conv/i_conv.c \
+          $(SRC)/conv/u_conv.c \
+          $(SRC)/conv/x_conv.c \
+          $(SRC)/conv/p_conv.c
 OBJECTS = $(patsubst $(SRC)/%,$(OBJDIR)/%, $(SOURCES:c=o))
 
 .PHONY = all clean fclean re test libft

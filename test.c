@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/27 14:37:48 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/08 17:43:35 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/11 14:19:41 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,19 @@
 #include <unistd.h>
 
 // #define TEST(...) __VA_ARGS__
-#define FT_PRINTF_SINGLE(format,...){write(1,"\"",1);ft_printf(format,print_info);}
-#define FT_PRINTF(format,...){write(1,"\"",1);ft_printf(format,print_info,__VA_ARGS__);}
+#define FT_PRINTF_SINGLE(format, ...) {\
+	write(1, "\"", 1);\
+	printf("\" (%i) <== expected\n\"", printf(format));\
+	fflush(NULL);\
+	ft_printf(format, print_info);\
+}
+
+#define FT_PRINTF(format, ...) {\
+	write(1, "\"", 1);\
+	printf("\" (%i) <== expected\n\"",  printf(format, __VA_ARGS__));\
+	fflush(NULL);\
+	ft_printf(format, print_info, __VA_ARGS__);\
+}
 
 char	*pad_name(t_conv *conv)
 {
@@ -53,23 +64,32 @@ char	*type_name(t_conv *conv)
 
 void	print_info(int len, t_conv *conv)
 {
-	printf("\
-\" (%i)\n\
+	(void)len;
+	(void)conv;
+	printf("\" (%i) <== got\n\n", len);
+	/*printf("\
+\" (%i) <== got\n\
 fw: %i,\n\
 p: %i,\n\
 pad: %s,\n\
 type: %s\n\n",
 	len, conv->field_width, conv->precision, pad_name(conv),
-	type_name(conv));
+	type_name(conv));*/
 	fflush(NULL);
 }
 
+#include "lib/libft/libft.h"
+#include <stdlib.h>
 int	main(void)
 {
 	FT_PRINTF_SINGLE("test");
 	FT_PRINTF("hello %-13s", "world");
 	FT_PRINTF("char: %c", 'c');
 	FT_PRINTF("char: %c", '\0');
-	FT_PRINTF("%*.c", -32, 'a');
+	FT_PRINTF("%c", 'a');
+	FT_PRINTF("%i", -__INT_MAX__-1);
+	FT_PRINTF("%X", __UINT32_MAX__);
+	FT_PRINTF("%u", __UINT32_MAX__);
+	FT_PRINTF("%p", (void *)__UINT64_MAX__);
 	return (0);
 }
