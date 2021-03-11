@@ -6,7 +6,7 @@
 #    By: mvan-wij <mvan-wij@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/02/27 13:30:55 by mvan-wij      #+#    #+#                  #
-#    Updated: 2021/03/11 14:11:19 by mvan-wij      ########   odam.nl          #
+#    Updated: 2021/03/11 23:04:35 by mvan-wij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SOURCES = $(SRC)/ft_printf.c \
           $(SRC)/conv/i_conv.c \
           $(SRC)/conv/u_conv.c \
           $(SRC)/conv/x_conv.c \
-          $(SRC)/conv/p_conv.c
+          $(SRC)/conv/p_conv.c \
+          $(SRC)/precision.c
 OBJECTS = $(patsubst $(SRC)/%,$(OBJDIR)/%, $(SOURCES:c=o))
 
 .PHONY: all clean fclean re test debug profile $(LIBFT)

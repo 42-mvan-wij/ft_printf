@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 23:14:24 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/11 11:59:35 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/11 23:12:07 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,11 @@
 
 int	print_s(t_conv *conv, char *str)
 {
-	return (print_with_field_width(conv, str, ft_strlen(str)));
+	char	*s;
+	int		len;
+
+	s = precision_chars(conv->precision, str);
+	len = print_with_field_width(conv, s, ft_strlen(s));
+	free(s);
+	return (len);
 }

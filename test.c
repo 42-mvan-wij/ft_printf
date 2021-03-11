@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/27 14:37:48 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/11 14:19:41 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/11 23:19:19 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,12 @@ int	main(void)
 {
 	FT_PRINTF_SINGLE("test");
 	FT_PRINTF("hello %-13s", "world");
+	FT_PRINTF("hello %.2s", "world");
 	FT_PRINTF("char: %c", 'c');
 	FT_PRINTF("char: %c", '\0');
 	FT_PRINTF("%c", 'a');
 	FT_PRINTF("%i", -__INT_MAX__-1);
+	FT_PRINTF("%.37i", -__INT_MAX__-1);
 	FT_PRINTF("%X", __UINT32_MAX__);
 	FT_PRINTF("%u", __UINT32_MAX__);
 	FT_PRINTF("%p", (void *)__UINT64_MAX__);

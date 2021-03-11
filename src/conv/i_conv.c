@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 23:14:24 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/11 13:23:55 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/11 23:09:23 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,17 @@
 
 int	print_i(t_conv *conv, int i)
 {
-	char	*s;
+	char	*s1;
+	char	*s2;
+	int		len;
 
-	s = ft_itoa(i);
-	if (s == NULL)
+	s1 = ft_itoa(i);
+	s2 = precision_digits(conv->precision, s1);
+	if (s1 != NULL)
+		free(s1);
+	if (s2 == NULL)
 		return (-1);
-	return (print_with_field_width(conv, s, ft_strlen(s)));
+	len = print_with_field_width(conv, s2, ft_strlen(s2));
+	free(s2);
+	return (len);
 }
