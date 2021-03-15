@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/11 22:44:13 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/11 23:43:02 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/15 17:49:04 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*precision_digits(int precision, char *str)
 	dst = malloc(precision + has_sign + 1);
 	if (dst == NULL)
 		return (NULL);
-	ft_memset(dst, '*', precision + has_sign);
+	// ft_memset(dst, '*', precision + has_sign);
 	dst[0] = str[0];
 	ft_memset(dst + has_sign, '0', precision - len);
 	ft_memmove(dst + has_sign + precision - len, str + has_sign, len);

@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 22:28:53 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/11 14:17:59 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/15 16:23:18 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static int	print_until_next_conv(char *format)
 static int	print_conversion(t_conv *conv, int cur_len, va_list ap)
 {
 	(void)cur_len;
+	if (conv->e_type == PCT)
+		return (print_pct(conv));
 	if (conv->e_type == CHAR)
 		return (print_c(conv, va_arg(ap, int)));
 	if (conv->e_type == STRING)

@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 22:18:03 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/07 22:54:28 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/15 16:35:28 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ static char	*parse_flags(char *format, t_conv *conv)
 	set_default_flags(conv);
 	while (*format != '\0')
 	{
-		if (*format == '0' && conv->e_pad_type != RIGHT)
-			conv->e_pad_type = ZERO;
+		if (*format == '0')
+		{
+			if (conv->e_pad_type != RIGHT)
+				conv->e_pad_type = ZERO;
+		}
 		else if (*format == '-')
 			conv->e_pad_type = RIGHT;
 		else
@@ -46,7 +49,9 @@ static char	*parse_field_width(char *format, t_conv *conv, va_list ap)
 	if (!ft_isdigit(format[0]))
 		return (format);
 	conv->field_width = ft_atoi(format);
-	return (format + ft_nbrlen(conv->field_width, 10));
+	while (ft_isdigit(*format))
+		format++;
+	return (format);
 }
 
 static char	*parse_precision(char *format, t_conv *conv, va_list ap)
@@ -69,7 +74,9 @@ static char	*parse_precision(char *format, t_conv *conv, va_list ap)
 
 static void	parse_conv_type(char *format, t_conv *conv)
 {
-	if (format[0] == 'c')
+	if (format[0] == '%')
+		conv->e_type = PCT;
+	else if (format[0] == 'c')
 		conv->e_type = CHAR;
 	else if (format[0] == 's')
 		conv->e_type = STRING;

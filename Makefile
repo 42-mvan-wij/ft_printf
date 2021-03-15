@@ -6,7 +6,7 @@
 #    By: mvan-wij <mvan-wij@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/02/27 13:30:55 by mvan-wij      #+#    #+#                  #
-#    Updated: 2021/03/11 23:04:35 by mvan-wij      ########   odam.nl          #
+#    Updated: 2021/03/15 16:23:54 by mvan-wij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SOURCES = $(SRC)/ft_printf.c \
           $(SRC)/parse_conv.c \
           $(SRC)/print_part.c \
           $(SRC)/field_width.c \
+          $(SRC)/conv/pct_conv.c \
           $(SRC)/conv/c_conv.c \
           $(SRC)/conv/s_conv.c \
           $(SRC)/conv/i_conv.c \
