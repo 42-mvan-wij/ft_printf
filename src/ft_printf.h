@@ -34,7 +34,8 @@ typedef struct s_ft_printf_conv
 		//FLOAT,
 		HEX_LOW,
 		HEX_CAP,
-		PTR
+		PTR,
+		NBR
 	}	e_type;
 }		t_conv;
 
@@ -50,6 +51,7 @@ int		print_i(t_conv *conv, int i);
 int		print_u(t_conv *conv, unsigned int i);
 int		print_x(t_conv *conv, unsigned int i, int cap);
 int		print_p(t_conv *conv, void *p);
+int		save_len(int len, int *dst);
 char	*print_part(char *format, va_list ap, int *len, t_conv *tmp_conv_arg);
 int		ft_printf(const char *format, ...);
 

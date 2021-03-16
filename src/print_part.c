@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 22:28:53 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/15 16:23:18 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/16 15:33:35 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static int	print_conversion(t_conv *conv, int cur_len, va_list ap)
 		return (print_x(conv, va_arg(ap, unsigned), conv->e_type == HEX_CAP));
 	if (conv->e_type == PTR)
 		return (print_p(conv, va_arg(ap, void *)));
+	if (conv->e_type == NBR)
+		return (save_len(cur_len, va_arg(ap, int *)));
 	return (-1);
 }
 

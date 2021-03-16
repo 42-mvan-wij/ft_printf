@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 22:18:03 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/15 16:35:28 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/16 15:56:28 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ static void	parse_conv_type(char *format, t_conv *conv)
 		conv->e_type = HEX_CAP;
 	else if (format[0] == 'p')
 		conv->e_type = PTR;
+	else if (format[0] == 'n')
+		conv->e_type = NBR;
 	else
 		conv->e_type = UNSET;
 }

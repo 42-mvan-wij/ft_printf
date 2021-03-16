@@ -6,7 +6,7 @@
 #    By: mvan-wij <mvan-wij@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/02/27 13:30:55 by mvan-wij      #+#    #+#                  #
-#    Updated: 2021/03/15 16:23:54 by mvan-wij      ########   odam.nl          #
+#    Updated: 2021/03/16 15:38:06 by mvan-wij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SOURCES = $(SRC)/ft_printf.c \
           $(SRC)/conv/u_conv.c \
           $(SRC)/conv/x_conv.c \
           $(SRC)/conv/p_conv.c \
+          $(SRC)/conv/n_conv.c \
           $(SRC)/precision.c
 OBJECTS = $(patsubst $(SRC)/%,$(OBJDIR)/%, $(SOURCES:c=o))
 
