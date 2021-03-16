@@ -106,6 +106,8 @@ char	*parse_conversion(char *format, t_conv *conv, va_list ap)
 	format = parse_field_width(format, conv, ap);
 	// precision
 	format = parse_precision(format, conv, ap);
+	// if (conv->precision >= 0 && conv->e_pad_type == ZERO)
+	// 	conv->e_pad_type = LEFT;
 	// length modifier (probaly not worth)
 	//
 	// conversion type

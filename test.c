@@ -6,28 +6,52 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/27 14:37:48 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/15 17:29:05 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/16 16:00:37 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "src/ft_printf.h"
+#include "lib/libft/libft.h"
+#include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include <math.h>
+// #define SKIP_REG
+
+#define PRINTF_SINGLE(format) {\
+	printf("ft_printf(%s):\n\"", format);\
+	printf("\" (%i) <== expected\n", printf(format));\
+	fflush(NULL);\
+}
+
+#define PRINTF(format, ...) {\
+	printf("ft_printf(%s, %s):\n\"", format, #__VA_ARGS__);\
+	printf("\" (%i) <== expected\n", printf(format, __VA_ARGS__));\
+	fflush(NULL);\
+}
 
 // #define TEST(...) __VA_ARGS__
-#define FT_PRINTF_SINGLE(format, ...) {\
+#define FT_PRINTF_SINGLE(format) {\
+	PRINTF_SINGLE(format);\
 	write(1, "\"", 1);\
-	printf("\" (%i) <== expected\n\"", printf(format));\
-	fflush(NULL);\
 	ft_printf(format, print_info);\
 }
 
 #define FT_PRINTF(format, ...) {\
+	PRINTF(format, __VA_ARGS__);\
 	write(1, "\"", 1);\
-	printf("\" (%i) <== expected\n\"",  printf(format, __VA_ARGS__));\
-	fflush(NULL);\
 	ft_printf(format, __VA_ARGS__, print_info);\
+}
+
+#define PRINTF_SINGLE_NL(format) {\
+	PRINTF_SINGLE(format);\
+	write(1, "\n", 1);\
+}
+
+#define PRINTF_NL(format, ...) {\
+	PRINTF(format, __VA_ARGS__);\
+	write(1, "\n", 1);\
 }
 
 char	*pad_name(t_conv *conv)
@@ -80,23 +104,132 @@ type: %s\n\n",
 	fflush(NULL);
 }
 
-#include "lib/libft/libft.h"
-#include <stdlib.h>
 int	main(void)
 {
-	FT_PRINTF("%05s", "h");
-	FT_PRINTF_SINGLE("%-05%");
-	FT_PRINTF_SINGLE("hello, world!");
-	FT_PRINTF("hello %-13s", "world");
-	FT_PRINTF("hello %.2s", "world");
-	FT_PRINTF("hello %.3s", NULL);
-	FT_PRINTF("char: %c", 'c');
-	FT_PRINTF("char: %c", '\0');
+	#ifndef SKIP_REG
+	// regular tests
 	FT_PRINTF("%c", 'a');
-	FT_PRINTF("%i", -__INT_MAX__-1);
-	FT_PRINTF("%.37i", -__INT_MAX__-1);
-	FT_PRINTF("%X", __UINT32_MAX__);
-	FT_PRINTF("%u", __UINT32_MAX__);
-	FT_PRINTF("%p", (void *)__UINT64_MAX__);
+	FT_PRINTF("%i", 12);
+	FT_PRINTF("%i", -12);
+	FT_PRINTF("%p", (void *)84);
+	FT_PRINTF("%p", (void *)-84);
+	FT_PRINTF_SINGLE("%%");
+	FT_PRINTF("%s", "hello");
+	#ifdef __APPLE__
+	FT_PRINTF("%s", NULL);
+	#endif
+	FT_PRINTF("%u", 932);
+	FT_PRINTF("%u", -932);
+	FT_PRINTF("%x", 7823);
+	FT_PRINTF("%X", -7823);
+
+	FT_PRINTF("%12c", 'a');
+	FT_PRINTF("%12i", 12);
+	FT_PRINTF("%12i", -12);
+	FT_PRINTF("%12p", (void *)84);
+	FT_PRINTF("%12p", (void *)-84);
+	#ifdef __APPLE__
+	FT_PRINTF_SINGLE("%12%");
+	#endif
+	FT_PRINTF("%12s", "hello");
+	#ifdef __APPLE__
+	FT_PRINTF("%12s", NULL);
+	#endif
+	FT_PRINTF("%12u", 932);
+	FT_PRINTF("%12u", -932);
+	FT_PRINTF("%12x", 7823);
+	FT_PRINTF("%12X", -7823);
+
+	#ifdef __APPLE__
+	FT_PRINTF("%012c", 'a');
+	#endif
+	FT_PRINTF("%012i", 12);
+	FT_PRINTF("%012i", -12);
+	#ifdef __APPLE__
+	FT_PRINTF("%012p", (void *)84);
+	FT_PRINTF("%012p", (void *)-84);
+	FT_PRINTF_SINGLE("%012%");
+	FT_PRINTF("%012s", "hello");
+	FT_PRINTF("%012s", NULL);
+	#endif
+	FT_PRINTF("%012u", 932);
+	FT_PRINTF("%012u", -932);
+	FT_PRINTF("%012x", 7823);
+	FT_PRINTF("%012X", -7823);
+
+	#ifdef __APPLE__
+	FT_PRINTF("%.12c", 'a');
+	#endif
+	FT_PRINTF("%.12i", 12);
+	FT_PRINTF("%.12i", -12);
+	#ifdef __APPLE__
+	FT_PRINTF("%.12p", (void *)84);
+	FT_PRINTF("%.12p", (void *)-84);
+	FT_PRINTF_SINGLE("%.12%");
+	#endif
+	FT_PRINTF("%.12s", "hello");
+	#ifdef __APPLE__
+	FT_PRINTF("%.12s", NULL);
+	#endif
+	FT_PRINTF("%.12u", 932);
+	FT_PRINTF("%.12u", -932);
+	FT_PRINTF("%.12x", 7823);
+	FT_PRINTF("%.12X", -7823);
+
+	#ifdef __APPLE__
+	FT_PRINTF("%12.6c", 'a');
+	#endif
+	FT_PRINTF("%12.6i", 12);
+	FT_PRINTF("%12.6i", -12);
+	#ifdef __APPLE__
+	FT_PRINTF("%12.6p", (void *)84);
+	FT_PRINTF("%12.6p", (void *)-84);
+	FT_PRINTF_SINGLE("%12.6%");
+	#endif
+	FT_PRINTF("%12.6s", "hello");
+	#ifdef __APPLE__
+	FT_PRINTF("%12.6s", NULL);
+	#endif
+	FT_PRINTF("%12.6u", 932);
+	FT_PRINTF("%12.6u", -932);
+	FT_PRINTF("%12.6x", 7823);
+	FT_PRINTF("%12.6X", -7823);
+
+	#ifdef __APPLE__
+	FT_PRINTF("%.c", 'a');
+	#endif
+	FT_PRINTF("%.i", 12);
+	FT_PRINTF("%.i", -12);
+	#ifdef __APPLE__
+	FT_PRINTF("%.p", (void *)84);
+	FT_PRINTF("%.p", (void *)-84);
+	FT_PRINTF_SINGLE("%.%");
+	#endif
+	FT_PRINTF("%.s", "hello");
+	#ifdef __APPLE__
+	FT_PRINTF("%.s", NULL);
+	#endif
+	FT_PRINTF("%.u", 932);
+	FT_PRINTF("%.u", -932);
+	FT_PRINTF("%.x", 7823);
+	FT_PRINTF("%.X", -7823);
+
+	#ifdef __APPLE__
+	FT_PRINTF("%012.2c", 'a');
+	FT_PRINTF("%012.2i", 12);
+	FT_PRINTF("%012.2i", -12);
+	FT_PRINTF("%012.2p", (void *)84);
+	FT_PRINTF("%012.2p", (void *)-84);
+	FT_PRINTF_SINGLE("%012.2%");
+	FT_PRINTF("%012.2s", "hello");
+	FT_PRINTF("%012.2s", NULL);
+	FT_PRINTF("%012.2u", 932);
+	FT_PRINTF("%012.2u", -932);
+	FT_PRINTF("%012.2x", 7823);
+	FT_PRINTF("%012.2X", -7823);
+	#endif
+	#else
+	// one time tests
+	#endif
 	return (0);
 }

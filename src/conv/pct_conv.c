@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 23:14:24 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/15 16:21:19 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/16 12:05:18 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 
 int	print_pct(t_conv *conv)
 {
-	return (print_with_field_width(conv, "%", 1));
+	return (print_with_field_width(conv, "%", 1, 0));
 }

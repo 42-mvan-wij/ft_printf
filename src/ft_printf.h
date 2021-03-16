@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/27 14:40:20 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/15 16:22:36 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/16 15:33:47 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_ft_printf_conv
 
 void	set_default_flags(t_conv *conv);
 char	*parse_conversion(char *format, t_conv *conv, va_list ap);
-int		print_with_field_width(t_conv *conv, char *str, int len);
+int		print_with_field_width(t_conv *conv, char *str, int len, int zero_skip);
 char	*precision_digits(int precision, char *str);
 char	*precision_chars(int precision, char *str);
 int		print_pct(t_conv *conv);

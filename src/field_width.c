@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 23:19:27 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/15 17:46:30 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/16 15:13:24 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,47 +31,47 @@ static int	print_padding(int len, char c)
 	return (write_len);
 }
 
-int	num_fw_zero_pad(t_conv *conv, char *str, int len)
+static int	print_field_width_left(t_conv *conv, char *str, int len)
 {
-	bool	has_sign;
-	int		write_len;
-
-	if (len >= conv->field_width)
-		return (write(1, str, len));
-	write_len = 0;
-	has_sign = str[0] == '-' || str[0] == '+';
-	if (has_sign)
-		write_len = write(1, str, 1);
-	if (write_len < 0)
+	if (print_padding(conv->field_width - len, ' ') < 0)
 		return (-1);
-	write_len = print_padding(conv->field_width - len, '0');
-	if (write_len < 0)
-		return (-1);
-	write_len = write(1, str, len - has_sign);
-	if (write_len < 0)
+	if (write(1, str, len) < 0)
 		return (-1);
 	return (conv->field_width);
 }
 
-int	print_with_field_width(t_conv *conv, char *str, int len)
+static int	print_field_width_right(t_conv *conv, char *str, int len)
 {
-	int	write_len;
-
-	if (len >= conv->field_width)
-		return (write(1, str, len));
-	write_len = 0;
-	if (conv->e_pad_type == LEFT)
-		write_len = print_padding(conv->field_width - len, ' ');
-	else if (conv->e_pad_type == ZERO)
-		write_len = print_padding(conv->field_width - len, '0');
-	if (write_len < 0)
+	if (write(1, str, len) < 0)
 		return (-1);
-	write_len = write(1, str, len);
-	if (write_len < 0)
-		return (-1);
-	if (conv->e_pad_type == RIGHT)
-		write_len = print_padding(conv->field_width - len, ' ');
-	if (write_len < 0)
+	if (print_padding(conv->field_width - len, ' ') < 0)
 		return (-1);
 	return (conv->field_width);
+}
+
+static int	print_field_width_zero(t_conv *conv, char *str, int len, int skip)
+{
+	if (skip > 0)
+	{
+		if (write(1, str, skip) < 0)
+			return (-1);
+	}
+	if (print_padding(conv->field_width - len, '0') < 0)
+		return (-1);
+	if (write(1, str + skip, len - skip) < 0)
+		return (-1);
+	return (conv->field_width);
+}
+
+int	print_with_field_width(t_conv *conv, char *str, int len, int zero_skip)
+{
+	if (len >= conv->field_width)
+		return (write(1, str, len));
+	if (conv->e_pad_type == LEFT)
+		return (print_field_width_left(conv, str, len));
+	if (conv->e_pad_type == RIGHT)
+		return (print_field_width_right(conv, str, len));
+	if (conv->e_pad_type == ZERO)
+		return (print_field_width_zero(conv, str, len, zero_skip));
+	return (-1);
 }
