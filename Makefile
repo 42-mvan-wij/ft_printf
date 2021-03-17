@@ -6,7 +6,7 @@
 #    By: mvan-wij <mvan-wij@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/02/27 13:30:55 by mvan-wij      #+#    #+#                  #
-#    Updated: 2021/03/16 15:38:06 by mvan-wij      ########   odam.nl          #
+#    Updated: 2021/03/17 16:05:04 by mvan-wij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = libftprintf.a
 LIBFT = lib/libft/libft.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =
+#-Wall -Wextra -Werror
 ifdef DEBUG
 CFLAGS += -g
 endif

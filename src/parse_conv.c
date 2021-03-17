@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 22:18:03 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/16 15:56:28 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/17 15:23:56 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,14 @@ char	*parse_conversion(char *format, t_conv *conv, va_list ap)
 	format = parse_field_width(format, conv, ap);
 	// precision
 	format = parse_precision(format, conv, ap);
-	// if (conv->precision >= 0 && conv->e_pad_type == ZERO)
-	// 	conv->e_pad_type = LEFT;
 	// length modifier (probaly not worth)
 	//
 	// conversion type
 	parse_conv_type(format, conv);
+	if (conv->precision >= 0 && conv->e_pad_type == ZERO
+		&& (conv->e_type == INT || conv->e_type == UINT
+			|| conv->e_type == HEX_LOW || conv->e_type == HEX_CAP
+			|| conv->e_type == PTR))
+		conv->e_pad_type = LEFT;
 	return (format + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/27 14:37:48 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/16 16:00:37 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/17 14:16:22 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,7 @@ int	main(void)
 	FT_PRINTF("%p", (void *)-84);
 	FT_PRINTF_SINGLE("%%");
 	FT_PRINTF("%s", "hello");
-	#ifdef __APPLE__
 	FT_PRINTF("%s", NULL);
-	#endif
 	FT_PRINTF("%u", 932);
 	FT_PRINTF("%u", -932);
 	FT_PRINTF("%x", 7823);
@@ -128,93 +126,66 @@ int	main(void)
 	FT_PRINTF("%12i", -12);
 	FT_PRINTF("%12p", (void *)84);
 	FT_PRINTF("%12p", (void *)-84);
-	#ifdef __APPLE__
 	FT_PRINTF_SINGLE("%12%");
-	#endif
 	FT_PRINTF("%12s", "hello");
-	#ifdef __APPLE__
 	FT_PRINTF("%12s", NULL);
-	#endif
 	FT_PRINTF("%12u", 932);
 	FT_PRINTF("%12u", -932);
 	FT_PRINTF("%12x", 7823);
 	FT_PRINTF("%12X", -7823);
 
-	#ifdef __APPLE__
 	FT_PRINTF("%012c", 'a');
-	#endif
 	FT_PRINTF("%012i", 12);
 	FT_PRINTF("%012i", -12);
-	#ifdef __APPLE__
 	FT_PRINTF("%012p", (void *)84);
 	FT_PRINTF("%012p", (void *)-84);
 	FT_PRINTF_SINGLE("%012%");
 	FT_PRINTF("%012s", "hello");
 	FT_PRINTF("%012s", NULL);
-	#endif
 	FT_PRINTF("%012u", 932);
 	FT_PRINTF("%012u", -932);
 	FT_PRINTF("%012x", 7823);
 	FT_PRINTF("%012X", -7823);
 
-	#ifdef __APPLE__
 	FT_PRINTF("%.12c", 'a');
-	#endif
 	FT_PRINTF("%.12i", 12);
 	FT_PRINTF("%.12i", -12);
-	#ifdef __APPLE__
 	FT_PRINTF("%.12p", (void *)84);
 	FT_PRINTF("%.12p", (void *)-84);
 	FT_PRINTF_SINGLE("%.12%");
-	#endif
 	FT_PRINTF("%.12s", "hello");
-	#ifdef __APPLE__
 	FT_PRINTF("%.12s", NULL);
-	#endif
 	FT_PRINTF("%.12u", 932);
 	FT_PRINTF("%.12u", -932);
 	FT_PRINTF("%.12x", 7823);
 	FT_PRINTF("%.12X", -7823);
 
-	#ifdef __APPLE__
 	FT_PRINTF("%12.6c", 'a');
-	#endif
 	FT_PRINTF("%12.6i", 12);
 	FT_PRINTF("%12.6i", -12);
-	#ifdef __APPLE__
 	FT_PRINTF("%12.6p", (void *)84);
 	FT_PRINTF("%12.6p", (void *)-84);
 	FT_PRINTF_SINGLE("%12.6%");
-	#endif
 	FT_PRINTF("%12.6s", "hello");
-	#ifdef __APPLE__
 	FT_PRINTF("%12.6s", NULL);
-	#endif
 	FT_PRINTF("%12.6u", 932);
 	FT_PRINTF("%12.6u", -932);
 	FT_PRINTF("%12.6x", 7823);
 	FT_PRINTF("%12.6X", -7823);
 
-	#ifdef __APPLE__
 	FT_PRINTF("%.c", 'a');
-	#endif
 	FT_PRINTF("%.i", 12);
 	FT_PRINTF("%.i", -12);
-	#ifdef __APPLE__
 	FT_PRINTF("%.p", (void *)84);
 	FT_PRINTF("%.p", (void *)-84);
 	FT_PRINTF_SINGLE("%.%");
-	#endif
 	FT_PRINTF("%.s", "hello");
-	#ifdef __APPLE__
 	FT_PRINTF("%.s", NULL);
-	#endif
 	FT_PRINTF("%.u", 932);
 	FT_PRINTF("%.u", -932);
 	FT_PRINTF("%.x", 7823);
 	FT_PRINTF("%.X", -7823);
 
-	#ifdef __APPLE__
 	FT_PRINTF("%012.2c", 'a');
 	FT_PRINTF("%012.2i", 12);
 	FT_PRINTF("%012.2i", -12);
@@ -227,7 +198,6 @@ int	main(void)
 	FT_PRINTF("%012.2u", -932);
 	FT_PRINTF("%012.2x", 7823);
 	FT_PRINTF("%012.2X", -7823);
-	#endif
 	#else
 	// one time tests
 	#endif
