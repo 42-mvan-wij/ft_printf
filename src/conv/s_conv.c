@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 23:14:24 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/16 12:05:22 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/22 17:23:28 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int	print_s(t_conv *conv, char *str)
 {
 	char	*s;
-	int		len;
+	size_t	len;
 
 	if (str == NULL)
 		str = "(null)";

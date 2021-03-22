@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/11 22:44:13 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/15 17:49:04 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/22 13:54:06 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	*precision_digits(int precision, char *str)
 	if (str == NULL)
 		return (NULL);
 	len = ft_strlen(str);
+	if (precision == 0 && len == 1 && *str == '0')
+		return (ft_memdup("", 1));
 	has_sign = str[0] == '-' || str[0] == '+';
 	len -= has_sign;
 	if (precision < 0 || precision <= len)
@@ -34,13 +36,13 @@ char	*precision_digits(int precision, char *str)
 	// ft_memset(dst, '*', precision + has_sign);
 	dst[0] = str[0];
 	ft_memset(dst + has_sign, '0', precision - len);
-	ft_memmove(dst + has_sign + precision - len, str + has_sign, len);
+	ft_memmove(dst + has_sign + precision - len, str + has_sign, len + 1);
 	return (dst);
 }
 
 char	*precision_chars(int precision, char *str)
 {
-	uint8_t	len;
+	size_t	len;
 	char	*dst;
 
 	if (str == NULL)

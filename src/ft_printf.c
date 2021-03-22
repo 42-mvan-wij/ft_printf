@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/27 13:25:10 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/15 17:27:39 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/22 12:24:16 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ int	ft_printf(const char *format_string, ...)
 		if (format == NULL)
 			return (-1);
 	}
+	#ifdef WITH_FN
 	void (*fn)(int, t_conv *) = va_arg(ap, void *); // tmp
 	fn(len, &tmp_conv_arg); // tmp
+	#endif
 	va_end(ap);
 	return (len);
 }

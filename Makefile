@@ -6,7 +6,7 @@
 #    By: mvan-wij <mvan-wij@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/02/27 13:30:55 by mvan-wij      #+#    #+#                  #
-#    Updated: 2021/03/17 16:05:04 by mvan-wij      ########   odam.nl          #
+#    Updated: 2021/03/22 17:23:38 by mvan-wij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,14 +44,14 @@ OBJECTS = $(patsubst $(SRC)/%,$(OBJDIR)/%, $(SOURCES:c=o))
 all: $(NAME)
 
 test: $(SOURCES) test.c $(LIBFT)
-	gcc $(CFLAGS) $(SOURCES) test.c $(LIBFT)
+	gcc $(CFLAGS) -DWITH_FN $(SOURCES) test.c $(LIBFT)
 	@echo ./a.out
 	@echo ------------
 	@./a.out
 
 debug: test.c
 	$(MAKE) re DEBUG=1
-	gcc $(CFLAGS) -g test.c $(NAME)
+	gcc $(CFLAGS) -g -DWITH_FN test.c $(NAME)
 	@# @echo ./a.out
 	@# @echo -------------
 	@# @./a.out
