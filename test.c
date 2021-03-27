@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/27 14:37:48 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/22 13:54:25 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/27 13:36:29 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <math.h>
-#define SKIP_REG
+// #define SKIP_REG
 
 #define PRINTF_SINGLE(format) {\
 	printf("ft_printf(%s):\n\"", format);\
@@ -35,13 +35,15 @@
 #define FT_PRINTF_SINGLE(format) {\
 	PRINTF_SINGLE(format);\
 	write(1, "\"", 1);\
-	ft_printf(format, print_info);\
+	printf("\" (%i) <== got\n\n", ft_printf(format, print_info));\
+	fflush(NULL);\
 }
 
 #define FT_PRINTF(format, ...) {\
 	PRINTF(format, __VA_ARGS__);\
 	write(1, "\"", 1);\
-	ft_printf(format, __VA_ARGS__, print_info);\
+	printf("\" (%i) <== got\n\n", ft_printf(format, __VA_ARGS__, print_info));\
+	fflush(NULL);\
 }
 
 #define PRINTF_SINGLE_NL(format) {\
@@ -86,22 +88,6 @@ char	*type_name(t_conv *conv)
 	if (conv->e_type == PTR)
 		return ("PTR");
 	return ("(UNKNOWN)");
-}
-
-void	print_info(int len, t_conv *conv)
-{
-	(void)len;
-	(void)conv;
-	printf("\" (%i) <== got\n\n", len);
-	/*printf("\
-\" (%i) <== got\n\
-fw: %i,\n\
-p: %i,\n\
-pad: %s,\n\
-type: %s\n\n",
-	len, conv->field_width, conv->precision, pad_name(conv),
-	type_name(conv));*/
-	fflush(NULL);
 }
 
 int	main(void)
