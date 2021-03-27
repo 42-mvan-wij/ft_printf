@@ -6,7 +6,7 @@
 #    By: mvan-wij <mvan-wij@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/02/27 13:30:55 by mvan-wij      #+#    #+#                  #
-#    Updated: 2021/03/22 17:23:38 by mvan-wij      ########   odam.nl          #
+#    Updated: 2021/03/27 13:29:11 by mvan-wij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,7 @@ NAME = libftprintf.a
 LIBFT = lib/libft/libft.a
 
 CC = gcc
-CFLAGS =
-#-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 ifdef DEBUG
 CFLAGS += -g
 endif
@@ -39,28 +38,12 @@ SOURCES = $(SRC)/ft_printf.c \
           $(SRC)/precision.c
 OBJECTS = $(patsubst $(SRC)/%,$(OBJDIR)/%, $(SOURCES:c=o))
 
-.PHONY: all clean fclean re test debug profile $(LIBFT)
+.PHONY: all clean fclean re debug $(LIBFT)
 
 all: $(NAME)
 
-test: $(SOURCES) test.c $(LIBFT)
-	gcc $(CFLAGS) -DWITH_FN $(SOURCES) test.c $(LIBFT)
-	@echo ./a.out
-	@echo ------------
-	@./a.out
-
-debug: test.c
-	$(MAKE) re DEBUG=1
-	gcc $(CFLAGS) -g -DWITH_FN test.c $(NAME)
-	@# @echo ./a.out
-	@# @echo -------------
-	@# @./a.out
-	@# @rm a.out
-
-profile: debug
-	valgrind -q --tool=callgrind --callgrind-out-file=/tmp/callgrind.out ./a.out
-	gprof2dot --format=callgrind -o/tmp/out.dot /tmp/callgrind.out
-	dot -Gdpi=400 -Tpng /tmp/out.dot -o profile.png
+debug:
+	$(MAKE) DEBUG=1
 
 $(NAME): $(OBJECTS) $(LIBFT)
 	cp $(LIBFT) $(NAME)
