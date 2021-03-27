@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 22:28:53 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/16 15:33:35 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/27 13:08:37 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	print_conversion(t_conv *conv, int cur_len, va_list ap)
 	return (-1);
 }
 
-char	*print_part(char *format, va_list ap, int *len, t_conv *tmp_conv_arg)
+char	*print_part(char *format, va_list ap, int *len)
 {
 	t_conv	conv;
 	char	*after_part;
@@ -58,7 +58,6 @@ char	*print_part(char *format, va_list ap, int *len, t_conv *tmp_conv_arg)
 	{
 		format++;
 		after_part = parse_conversion(format, &conv, ap);
-		*tmp_conv_arg = conv;
 		part_len = print_conversion(&conv, *len, ap);
 		if (part_len < 0)
 			return (NULL);

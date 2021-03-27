@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 22:18:03 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/17 15:23:56 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/27 13:07:46 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ static void	parse_conv_type(char *format, t_conv *conv)
 		conv->e_type = INT;
 	else if (format[0] == 'u')
 		conv->e_type = UINT;
-	//else if (format[0] == 'f')
-		//conv->type = FLOAT;
 	else if (format[0] == 'x')
 		conv->e_type = HEX_LOW;
 	else if (format[0] == 'X')
@@ -102,15 +100,9 @@ char	*parse_conversion(char *format, t_conv *conv, va_list ap)
 {
 	if (format == NULL)
 		return (NULL);
-	// flags
 	format = parse_flags(format, conv);
-	// min field width
 	format = parse_field_width(format, conv, ap);
-	// precision
 	format = parse_precision(format, conv, ap);
-	// length modifier (probaly not worth)
-	//
-	// conversion type
 	parse_conv_type(format, conv);
 	if (conv->precision >= 0 && conv->e_pad_type == ZERO
 		&& (conv->e_type == INT || conv->e_type == UINT

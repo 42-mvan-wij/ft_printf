@@ -6,7 +6,7 @@
 /*   By: mvan-wij <mvan-wij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/07 23:19:27 by mvan-wij      #+#    #+#                 */
-/*   Updated: 2021/03/22 13:18:52 by mvan-wij      ########   odam.nl         */
+/*   Updated: 2021/03/27 13:26:44 by mvan-wij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ static int	print_field_width_zero(t_conv *conv, char *str, int len, int skip)
 	return (conv->field_width);
 }
 
-int	print_with_field_width(t_conv *conv, char *str, size_t len, int zero_skip)
+int	print_w_field_width(t_conv *conv, char *str, size_t len, int zero_skip)
 {
-	if (len >= conv->field_width)
+	if (conv->field_width < 0 || len >= (size_t)conv->field_width)
 		return (write(1, str, len));
 	if (conv->e_pad_type == LEFT)
 		return (print_field_width_left(conv, str, len));
